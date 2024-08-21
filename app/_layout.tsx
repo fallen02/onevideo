@@ -4,11 +4,13 @@ import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
+import * as NavigationBar from 'expo-navigation-bar'
 
 import { useColorScheme } from '@/hooks/useColorScheme';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
+
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
@@ -16,9 +18,17 @@ export default function RootLayout() {
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
   });
 
+  
+  // setNavigationBarColor()
+
   useEffect(() => {
     if (loaded) {
       SplashScreen.hideAsync();
+      async function setNavigationBarColor() {
+        await NavigationBar.setPositionAsync('absolute')
+        await NavigationBar.setBackgroundColorAsync("#ffffff00")
+      }
+      setNavigationBarColor()
     }
   }, [loaded]);
 
